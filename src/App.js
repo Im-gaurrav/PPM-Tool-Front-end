@@ -8,9 +8,12 @@ import AddProject from "./components/AddProject";
 import Page7 from "./components/Project/Page7";
 import Register from './components/Register.js';
 import Login from './components/Login.js';
+import { Provider } from "react-redux";
+import store from './store.js';
 class App extends Component {
     render(){
   return (
+    <Provider store={store}>
     <Router> 
     <div className="App">
      <Header />
@@ -30,6 +33,7 @@ class App extends Component {
         </Switch>
     </div>
     </Router>
+    </Provider>
   );
     }
 }

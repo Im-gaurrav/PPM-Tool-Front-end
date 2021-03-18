@@ -1,66 +1,58 @@
 import React, {Component} from "react";
-// eslint-disable-next-line no-unused-vars
 import ProjectItems from "./Project/ProjectItems";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CreateProjectButton from "./Project/CreateProjectButton.js";
 import {Jumbotron} from "reactstrap";
-// import Header from "./Layout/Header";
+import {connect} from "react-redux";
+import {getProjects} from "../actions/projectActions.js";
+import propTypes from "prop-types";
+
 class Dashboard extends Component{
+
+// lifecycle hook
+    componentDidMount(){
+        this.props.getProjects();
+    }
+
     render(){
+
+    const {projects} = this.props.project
+
     return (
 <div className="projects">
         <div className="container">
-        <Jumbotron>
-            <div className="row">
-                <div className="col-md-12">
-                <h1 className="display-4 text-center">Projects</h1>
-                    <br />
-                    <CreateProjectButton />
-                    <br />
-                    <hr />
+            <Jumbotron>
+                <div className="row">
+                    <div className="col-md-12">
+                    <h1 className="display-4 text-center">Projects</h1>
+                        <br />
+                        <CreateProjectButton />
+                        <br />
+                        <hr />
+                        { projects.map(project=> (
+                            <ProjectItems key={project.id} project={project} />
+                            ))
+                        }
 
-                    
-                    <div className="container">
-                        <div className="card card-body bg-light mb-3">
-                            <div className="row">
-                                <div className="col-2">
-                                    <span className="mx-auto">REACT</span>
-                                </div>
-                                <div className="col-lg-6 col-md-4 col-8">
-                                    <h3>Spring Boot/ React Project</h3>
-                                    <p>Project Board with React</p>
-                                </div>
-                                <div className="col-md-4 d-none d-lg-block">
-                                    <ul className="list-group">
-                                        <a href="#">
-                                            <li className="list-group-item board">
-                                                <i className="fa fa-flag-checkered pr-1"> Project Board </i>
-                                            </li>
-                                        </a>
-                                        <a href="/addProject">
-                                            <li className="list-group-item update">
-                                                <i className="fa fa-edit pr-1"> Update Project Info</i>
-                                            </li>
-                                        </a>
-                                        <a href="">
-                                            <li className="list-group-item delete">
-                                                <i className="fa fa-minus-circle pr-1"> Delete Project</i>
-                                            </li>
-                                        </a>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
-                    
-                </div>
-            </div>
+                </div>               
             </Jumbotron>
         </div>
-    </div>
+</div>
     
-    )
+    );
     }
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+    project: propTypes.object.isRequired,
+    getProjects: propTypes.func.isRequired
+};
+
+const mapStateTOProps = state => ({
+    project: state.project
+
+})
+
+export default connect(mapStateTOProps, {getProjects})(Dashboard);
