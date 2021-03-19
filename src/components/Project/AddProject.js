@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Jumbotron} from "reactstrap";
-import ApiService from "../services/ApiService";
+import ApiService from "../../services/ApiService";
 
 class AddProject extends Component {
 constructor(props){
@@ -35,7 +35,7 @@ constructor(props){
         this.setState({ [p.target.name]: p.target.value });
     render() {
         return (
-          <div className="register">
+          <div className="project">
             <div className="container">
               <Jumbotron>
                 <div className="row">
