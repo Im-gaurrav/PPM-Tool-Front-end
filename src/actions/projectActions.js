@@ -1,11 +1,20 @@
 import axios from "axios";
 import { GET_PROJECT, GET_PROJECTS, GET_ERRORS, DELETE_PROJECT } from "./types";
+import { accessToken } from "../components/Login";
+
+
 
 export const updateProject = (projectDetails, history) => async (dispatch) => {
   try {
-    const res = await axios.put(
+    let axiosConfig = {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    };
+    await axios.put(
       "http://localhost:7171/project/update",
-      projectDetails
+      projectDetails,
+      axiosConfig
     );
     history.push("/dashboard");
   } catch (err) {
@@ -17,23 +26,45 @@ export const updateProject = (projectDetails, history) => async (dispatch) => {
 };
 
 export const deleteProject = (id) => async (dispatch) => {
-  await axios.delete(`http://localhost:7171/project/${id}`);
+  let axiosConfig = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  };
+  await axios.delete(`http://localhost:7171/project/${id}`, axiosConfig);
   dispatch({
     type: DELETE_PROJECT,
     payload: id,
   });
 };
 
-export const getProjects = ()=> async dispatch => {
-    const res = await axios.get("http://localhost:7171/project/getAllProjects")
-    dispatch({
-        type: GET_PROJECTS,
-        payload: res.data
-    });
+export const getProjects = (email) => async (dispatch) => {
+  console.log(accessToken);
+  let axiosConfig = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  };
+  const res = await axios.get(
+    `http://localhost:7171/project/getUserProjects/${email}`,
+    axiosConfig
+  );
+  dispatch({
+    type: GET_PROJECTS,
+    payload: res.data,
+  });
 };
 
-export const getProject = (id, history) => async (dispatch) => {
-  const res = await axios.get(`http://localhost:7171/project/${id}`);
+export const getProject = (uniquePid, history) => async (dispatch) => {
+  let axiosConfig = {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  };
+  const res = await axios.get(
+    `http://localhost:7171/project/${uniquePid}`,
+    axiosConfig
+  );
   dispatch({
     type: GET_PROJECT,
     payload: res.data,

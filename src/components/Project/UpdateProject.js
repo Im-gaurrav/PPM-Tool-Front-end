@@ -3,7 +3,7 @@ import { Jumbotron } from "reactstrap";
 import { getProject, updateProject } from "../../actions/projectActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-
+import { email } from "../Login";
 class UpdateProject extends Component {
   //set state
   constructor() {
@@ -60,7 +60,11 @@ class UpdateProject extends Component {
       projectStartDate: this.state.projectStartDate,
       projectEndDate: this.state.projectEndDate,
     };
-    this.props.updateProject(updateProject, this.props.history);
+    this.props.updateProject(updateProject, this.props.history).then((res) => {
+      this.setState({ message: "Project Updates successfully." });
+      this.props.history.push(`/dashboard/${email}`);
+      console.log(email);
+    });
   }
 
   render() {

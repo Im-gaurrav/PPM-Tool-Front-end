@@ -5,12 +5,14 @@ import ApiService from "../../services/ApiService";
 class AddProject extends Component {
 constructor(props){
         super(props);
+        const { email } = this.props.match.params;
         this.state = {
           projectName: "",
           uniquePid: "",
           projectDescription: "",
           projectStartDate: "",
           projectEndDate: "",
+          email: email,
         };
         this.saveProject = this.saveProject.bind(this);
     }
@@ -24,10 +26,10 @@ constructor(props){
           projectStartDate: this.state.projectStartDate,
           projectEndDate: this.state.projectEndDate,
         };
-        ApiService.addProject(projectDetails)
+        ApiService.addProject(projectDetails,this.state.email)
             .then(res => {
                 this.setState({message : 'Project added successfully.'});
-                this.props.history.push('/dashboard');
+                this.props.history.push(`/dashboard/${this.state.email}`);
         console.log(projectDetails);
             });
     }

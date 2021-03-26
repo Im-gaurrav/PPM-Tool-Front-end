@@ -8,26 +8,29 @@ class Register extends Component{
 constructor(props){
         super(props);
         this.state ={
-            name: '',
-            email: '',
-            password: ''
+            name: "",
+            email: "",
+            password: ""
         }
+        this.onChange = this.onChange.bind(this);
         this.saveUser = this.saveUser.bind(this);
     }
 
     saveUser = (e) => {
         e.preventDefault();
-        let u = {name: this.state.name, email: this.state.email, password: this.state.password};
+        const u = {name: this.state.name, email: this.state.email, password: this.state.password};
+        console.log(u);
         ApiService.addUser(u)
             .then(res => {
                 this.setState({message : 'User added successfully.'});
-                this.props.history.push('/login');
+                this.props.history.push(`/login`);
         console.log(u);
 
             });
     }
-    onChange = (e) =>
+    onChange(e){
         this.setState({ [e.target.name]: e.target.value });
+    }
     render(){
         return(
         <div class="register">
@@ -49,7 +52,7 @@ constructor(props){
                             <input type="password" class="form-control form-control-lg" placeholder="Password" name="password" value={this.state.password} onChange={this.onChange}/>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control form-control-lg" placeholder="Confirm Password" name="confirmPassword" value={this.state.confirmPassword} onChange={this.onChange}/>
+                            <input type="password" class="form-control form-control-lg" placeholder="Confirm Password" name="confirmPassword"  />
                         </div>
                         {/* <div class="dropdown">
                             <label for="sel1">Select list:</label>
@@ -61,7 +64,7 @@ constructor(props){
                             </select>
                         </div> */}
                         {/* <input type="submit" onClick={this.saveUser} class="btn btn-info btn-block mt-4" /> */}
-                        <button className="btn btn-success" onClick={this.saveUser}>Submit</button>
+                        <button className="btn btn-success" onClick={this.saveUser}> Submit</button>
                     </form>
                 </div>
             </div>

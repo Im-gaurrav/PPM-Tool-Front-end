@@ -1,34 +1,9 @@
-body {
-    background: #000;
-}
 img {
   width: 100%;
 }
-.logo img {
-    height: 50px;
-    width: auto;
-}
-.logo {
-    /* padding-top: 5px; */
-    -webkit-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
-    height: 65px;
-}
 
-.menu-bg .logo {
-    padding-top: 10px;
-    -webkit-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
-}
-p {
-border-top: 1px solid;
-}
-label {
-color: rgb(248, 137, 10);
-border-bottom: 1px solid;
-}
 .navbar {
-  background-color: #161616;
+  background-color: #e3f2fd;
 }
 .fa.fa-edit {
   color: #18a2b9;
@@ -50,6 +25,10 @@ border-bottom: 1px solid;
 }
 
 .fa.fa-minus-circle {
+  color: red;
+}
+
+.error {
   color: red;
 }
 
